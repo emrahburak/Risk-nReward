@@ -5,13 +5,17 @@ Vue.config.productionTip = false
 
 export const eventBus = new Vue({
     methods:{
+	
 	changeLimit(limit){
 	    this.$emit('limitWasEdited',limit);
-	    console.log(limit)
-	}
-
+	},
+	changeRisk(risk){
+	    this.$emit('riskEdit',risk);
+	},
     }
 });
+
+
 
 new Vue({
   render: h => h(App),

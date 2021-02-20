@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for="sermaye" class="form-label">Sermaye</label>
-    <input type="text" id="sermaye" class="form-control" aria-describedby="sermayeHelpBlock" v-model="sermaye">
+    <input type="text" id="sermaye" class="form-control" aria-describedby="sermayeHelpBlock" v-model="temp_limit">
     <div id="sermayeHelpBlock" class="form-text">
       Sermaye girin..
     </div>
@@ -11,19 +11,17 @@
 <script>
   import {eventBus} from '../main';
   export default{
+      props:["limit"],
       data(){
 	  return{
-	      sermaye:10000
-
+	      temp_limit:this.limit,
 	  }
-
       },
-	  created(){
-	      eventBus.$on('limitWasEdited',(limit)=>{
-		  this.sermaye = limit
-		  })
+      watch:{
+	  temp_limit: function(value){
+	      eventBus.changeLimit(value)
+	      }
 	  }
-
   }
 </script>
 

@@ -6,7 +6,7 @@
 	   aria-describedby="riskHelpBlock"
 	   min="0"
 	   max="100"
-	   :value="riskRatio"
+	   v-model="temp_risk"
 	   >
     <div id="riskHelpBlock" class="form-text">
        Herzaman ufak oyna!
@@ -15,12 +15,23 @@
 </template>
 
 <script>
+  import {eventBus} from '../main';
   export default{
+      props:["risk"],
       data(){
 	  return{
-	      riskRatio: 3
+	      temp_risk:this.risk
 	      }
-      }
+	  },
+      watch:{
+	  temp_risk: function(value){
+	      eventBus.changeRisk(value)
+	      }
+	  },
+    created(){
+	eventBus.changeRisk(this.temp_risk);
+	}
+
   }
 </script>
 
