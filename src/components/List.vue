@@ -9,10 +9,10 @@
 	</tr>
       </thead>
       <tbody>
-	<tr v-for="(number,index) in temp_days" :key="index">
-	  <th scope="row">{{number}}</th>
+	<tr v-for="(day,index) in dayList" :key="index">
+	  <th scope="row">{{day.number}}</th>
 	  <td>{{ }}</td>
-	  <td>{{wrapper(wrapped(temp_limit))}}</td>
+	  <td>{{day.limit}}</td>
 	</tr>
       </tbody>
     </table>
@@ -29,17 +29,25 @@
 	      temp_risk: this.risk,
 	      temp_limit: this.limit,
 	      temp_days: this.days,
-	      end_of_day:0
+	      end_of_day:0,
 	      }
       },
-      methods:{
-	  wrapper(value){
-	      return tempvalue;
-	  },
-	  wrapped(data){
-
-	      return data - (data/100) * this.temp_risk;
+      computed: {
+	  dayList : function(){
+	      let result = []
+	      let limit = this.temp_limit;
+	      let newLimit;
+	      for(let i=1; i<this.temp_days; i++){
+		  newLimit = limit - ((limit / 100) * this.temp_risk);
+		  limit = Math.floor(newLimit);
+		  result.push({
+		      number:i,
+		      limit
+		  });
+		  }
+	      return result;
 	      }
+
 	  },
       created(){
 	  eventBus.$on('limitWasEdited',(limit)=>{
@@ -48,7 +56,12 @@
 	  
 	  eventBus.$on('riskEdit',(risk)=>{
 	      this.temp_risk = risk;
+
 	  });
+	  eventBus.$on('daysLimitEdited',(days)=>{
+	      this.temp_days = days;
+	      });
+	      
       }
 	  
   }

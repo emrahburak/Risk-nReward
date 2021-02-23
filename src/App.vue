@@ -25,6 +25,7 @@ import Header from './components/Header'
 import List from './components/List'
 import Limit from './components/Limit'
 import Risk from './components/Risk'
+import {eventBus} from './main';
 
 export default {
     data(){
@@ -40,6 +41,9 @@ export default {
 	appLimit:Limit,
 	appList:List,
     },
+    created(){
+	eventBus.changeDaysLimits(this.days);
+	}
 }
 </script>
 

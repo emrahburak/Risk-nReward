@@ -12,6 +12,10 @@ export const eventBus = new Vue({
 	changeRisk(risk){
 	    this.$emit('riskEdit',risk);
 	},
+	changeDaysLimits(days){
+	    this.$emit('daysLimitEdited',days);
+
+	}
     }
 });
 
