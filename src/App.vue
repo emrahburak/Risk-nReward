@@ -32,7 +32,8 @@ export default {
 	return{
 	    risk: 3,
 	    limit: 1000,
-	    days:22
+	    days:22,
+	    lang:""
 	    }
 	},
     components:{
@@ -43,6 +44,9 @@ export default {
     },
     created(){
 	eventBus.changeDaysLimits(this.days);
+	eventBus.$on('langWasEdited',(lang)=>{
+	    this.lang = lang;
+	    })
 	}
 }
 </script>

@@ -11,8 +11,8 @@
       <tbody>
 	<tr v-for="(day,index) in dayList" :key="index">
 	  <th scope="row">{{day.number}}</th>
-	  <td>{{ }}</td>
-	  <td>{{day.limit}}</td>
+	  <td>{{day.preLimit }}</td>
+	  <td>{{day.endOfDay}}</td>
 	</tr>
       </tbody>
     </table>
@@ -29,20 +29,23 @@
 	      temp_risk: this.risk,
 	      temp_limit: this.limit,
 	      temp_days: this.days,
-	      end_of_day:0,
+	      lang:""
 	      }
       },
       computed: {
 	  dayList : function(){
 	      let result = []
 	      let limit = this.temp_limit;
-	      let newLimit;
+	      let postLimit;
+	      let preLimit;
 	      for(let i=1; i<this.temp_days; i++){
-		  newLimit = limit - ((limit / 100) * this.temp_risk);
-		  limit = Math.floor(newLimit);
+		  postLimit = limit - ((limit / 100) * this.temp_risk);
+		  preLimit = limit;
+		  limit = Math.floor(postLimit);
 		  result.push({
 		      number:i,
-		      limit
+		      endOfDay:limit,
+		      preLimit
 		  });
 		  }
 	      return result;
@@ -60,6 +63,9 @@
 	  });
 	  eventBus.$on('daysLimitEdited',(days)=>{
 	      this.temp_days = days;
+	      });
+	  eventBus.$on('langWasEdited',(lang)=>{
+	      this.lang = lang;
 	      });
 	      
       }

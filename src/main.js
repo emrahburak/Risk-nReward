@@ -14,7 +14,9 @@ export const eventBus = new Vue({
 	},
 	changeDaysLimits(days){
 	    this.$emit('daysLimitEdited',days);
-
+	},
+	changeLang(lang){
+	    this.$emit('langWasEdited',lang);
 	}
     }
 });
