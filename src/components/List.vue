@@ -1,11 +1,16 @@
 <template>
   <div>
-    <table class="table">
+    <table class="table table-striped table-hover table-bordered table-sm ">
       <thead>
-	<tr>
+	<tr v-if="lang === 'en'">
 	  <th scope="col">#</th>
-	  <th scope="col">Sermaye</th>
-	  <th scope="col">Gün Sonu</th>
+	  <th scope="col">{{list_lang_pack.title_one_en}}</th>
+	  <th scope="col">{{list_lang_pack.title_two_en}}</th>
+	</tr>
+	<tr v-else>
+	  <th scope="col">#</th>
+	  <th scope="col">{{list_lang_pack.title_one_tr}}</th>
+	  <th scope="col">{{list_lang_pack.title_two_tr}}</th>
 	</tr>
       </thead>
       <tbody>
@@ -23,13 +28,12 @@
   import {eventBus} from '../main';
   
   export default{
-      props:["risk","limit", "days"],
+      props:["risk","limit", "days","lang","list_lang_pack"],
       data(){
 	  return{
 	      temp_risk: this.risk,
 	      temp_limit: this.limit,
 	      temp_days: this.days,
-	      lang:""
 	      }
       },
       computed: {
@@ -38,12 +42,12 @@
 	      let limit = this.temp_limit;
 	      let postLimit;
 	      let preLimit;
-	      for(let i=1; i<this.temp_days; i++){
+	      for(let i=0; i<this.temp_days; i++){
 		  postLimit = limit - ((limit / 100) * this.temp_risk);
 		  preLimit = limit;
 		  limit = Math.floor(postLimit);
 		  result.push({
-		      number:i,
+		      number:i+1,
 		      endOfDay:limit,
 		      preLimit
 		  });
@@ -63,9 +67,6 @@
 	  });
 	  eventBus.$on('daysLimitEdited',(days)=>{
 	      this.temp_days = days;
-	      });
-	  eventBus.$on('langWasEdited',(lang)=>{
-	      this.lang = lang;
 	      });
 	      
       }

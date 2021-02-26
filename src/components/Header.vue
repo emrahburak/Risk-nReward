@@ -2,7 +2,8 @@
   <div>
     <div class="row">
       <div class="col-md-8">
-	<h2>Risk/Reward Ratio & Capital</h2>
+	<h2 v-if="temp_lang === 'en'">{{header_lang_pack.title_en}}</h2>
+	<h2 v-else>{{header_lang_pack.title_tr}}</h2>
       </div>
       <div class="col-md-4">
 	<br />
@@ -19,24 +20,26 @@
 <script>
   import {eventBus} from '../main';
   export default{
+      props:["langs",
+	     "header_lang_pack",
+	     "lang"
+	    ],
       data(){
 	  return{
-	      langs:["en","tr"],
-	      lang:""
-
+	      temp_lang: this.lang
 	      }
       },
       methods:{
 	  selectEvent: function(event){
-	      this.lang = event.target.value;
+	      this.temp_lang = event.target.value;
 	      }
 	  },
       watch:{
-	  lang: function(value){
+	  temp_lang: function(value){
 	      eventBus.changeLang(value);
 	  },
 	  created(){
-	      eventBus.changeLang(this.lang);
+	      eventBus.changeLang(this.temp_lang);
 	      }
 
 	  }
