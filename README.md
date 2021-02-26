@@ -1,5 +1,5 @@
 ### Sample
-See [click](http://trader-chunk.surge.sh/){:target="_blank"}.
+See [click](http://trader-chunk.surge.sh/).
 
 ## Project setup
 ```
