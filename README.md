@@ -1,4 +1,5 @@
-
+### Sample
+See [click](http://trader-chunk.surge.sh/).
 
 ## Project setup
 ```
@@ -22,8 +23,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-### Sample
-See [click](http://trader-chunk.surge.sh/).
 
 
