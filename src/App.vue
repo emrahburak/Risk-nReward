@@ -2,7 +2,6 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8 mx-auto">
-	
   	<app-header :langs="langs"
 		    :lang="lang"
 		    :header_lang_pack="header_lang_pack">
@@ -11,26 +10,31 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-4">
 	<app-risk :risk="risk"
 		  :lang="lang"
 		  :risk_lang_pack="risk_lang_pack">
 	</app-risk>
       </div>
-      <div class="col-md-6">
-	<app-list :risk="risk"
-		  :limit="limit"
-		  :days="days"
-		  :lang="lang"
-		  :list_lang_pack="list_lang_pack">
-	</app-list>
+      <div class="col-md-4">
       </div>
       <div class="col-md-4">
   	<app-limit :limit="limit"
 		  :lang="lang"
-		  :limit_lang_pack="limit_lang_pack"
-		   ></app-limit>
+		  :limit_lang_pack="limit_lang_pack">
+	</app-limit>
       </div>
+    </div>
+    <br />
+      <div class="row">
+	<div class="col-md-12">
+      	  <app-list :risk="risk"
+      		    :limit="limit"
+      		    :days="days"
+      		    :lang="lang"
+      		    :list_lang_pack="list_lang_pack">
+      	  </app-list>
+	</div>
     </div>
   </div>
 </template>
