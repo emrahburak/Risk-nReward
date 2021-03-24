@@ -4,13 +4,13 @@
       <thead>
 	<tr v-if="lang === 'en'">
 	  <th scope="col">#</th>
-	  <th scope="col">{{list_lang_pack.title_one_en}}</th>
-	  <th scope="col">{{list_lang_pack.title_two_en}}</th>
+	  <th scope="col">{{getListLang.title_first_en}}</th>
+	  <th scope="col">{{getListLang.title_second_en}}</th>
 	</tr>
 	<tr v-else>
 	  <th scope="col">#</th>
-	  <th scope="col">{{list_lang_pack.title_one_tr}}</th>
-	  <th scope="col">{{list_lang_pack.title_two_tr}}</th>
+	  <th scope="col">{{getListLang.title_first_tr}}</th>
+	  <th scope="col">{{getListLang.title_second_tr}}</th>
 	</tr>
       </thead>
       <tbody>
@@ -26,9 +26,10 @@
 
 <script>
   import {eventBus} from '../main';
+  import {mapGetters} from 'vuex'
   
   export default{
-      props:["risk","limit", "days","lang","list_lang_pack"],
+      props:["risk","limit", "days","lang"],
       data(){
 	  return{
 	      temp_risk: this.risk,
@@ -37,6 +38,9 @@
 	      }
       },
       computed: {
+	  ...mapGetters([
+	      "getListLang"
+	      ]),
 	  dayList : function(){
 	      let result = []
 	      let limit = this.temp_limit;

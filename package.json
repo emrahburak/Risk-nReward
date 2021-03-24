@@ -6,12 +6,13 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy":"npm run build && mv dist/index.html dist/200.html && surge dist trader-chunk.surge.sh"
+    "deploy": "npm run build && mv dist/index.html dist/200.html && surge dist trader-chunk.surge.sh"
   },
   "dependencies": {
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
-    "vue-strap": "^1.1.40"
+    "vue-strap": "^1.1.40",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
