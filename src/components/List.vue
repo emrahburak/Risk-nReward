@@ -1,8 +1,9 @@
 <template>
   <div>
+      <p> {{ getCurrentDate.month}} - {{ getCurrentDate.year}}</p>
     <table class="table table-striped table-hover table-bordered table-sm ">
       <thead>
-	<tr v-if="lang === 'en'">
+	<tr v-if="getSelectedLang === 'en'">
 	  <th scope="col">#</th>
 	  <th scope="col">{{getListLang.title_first_en}}</th>
 	  <th scope="col">{{getListLang.title_second_en}}</th>
@@ -25,29 +26,36 @@
 </template>
 
 <script>
-  import {eventBus} from '../main';
   import {mapGetters} from 'vuex'
-  
   export default{
-      props:["risk","limit", "days","lang"],
-      data(){
-	  return{
-	      temp_risk: this.risk,
-	      temp_limit: this.limit,
-	      temp_days: this.days,
-	      }
-      },
       computed: {
 	  ...mapGetters([
-	      "getListLang"
+	      "getListLang",
+	      "getSelectedLang",
+	      "getLimit",
+	      "getRisk",
+	      "getMonths",
 	      ]),
+	  getCurrentDate: function(){
+	      let now = new Date();
+	      return {
+		  month: this.getMonths[this.getSelectedLang][now.getMonth()],
+		  year: now.getUTCFullYear()
+	      }
+
+	      },
+	  getDaysOfMonth: function(){
+	      let now = new Date();
+	      return new Date(now.getUTCFullYear(), now.getUTCMonth()+1 ,0).getDate();
+
+	      },
 	  dayList : function(){
 	      let result = []
-	      let limit = this.temp_limit;
+	      let limit = this.getLimit;
 	      let postLimit;
 	      let preLimit;
-	      for(let i=0; i<this.temp_days; i++){
-		  postLimit = limit - ((limit / 100) * this.temp_risk);
+	      for(let i=0; i<this.getDaysOfMonth; i++){
+		  postLimit = limit - ((limit / 100) * this.getRisk);
 		  preLimit = limit;
 		  limit = Math.floor(postLimit);
 		  result.push({
@@ -57,24 +65,8 @@
 		  });
 		  }
 	      return result;
-	      }
-
-	  },
-      created(){
-	  eventBus.$on('limitWasEdited',(limit)=>{
-	      this.temp_limit = limit;
-	  });
-	  
-	  eventBus.$on('riskEdit',(risk)=>{
-	      this.temp_risk = risk;
-
-	  });
-	  eventBus.$on('daysLimitEdited',(days)=>{
-	      this.temp_days = days;
-	      });
-	      
+	  }
       }
-	  
   }
 </script>
 

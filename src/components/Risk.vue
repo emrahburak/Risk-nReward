@@ -1,15 +1,15 @@
 <template>
   <div>
-    <label for="inputRisk" class="form-label" v-if="lang === 'en'">{{getRiskLang.title_en}}</label>
+    <label for="inputRisk" class="form-label" v-if="getSelectedLang === 'en'">{{getRiskLang.title_en}}</label>
     <label for="inputRisk" class="form-label" v-else>{{getRiskLang.title_tr}}</label>
     <input type="number" id="inputRisk"
 	   class="form-control"
 	   aria-describedby="riskHelpBlock"
 	   min="0"
 	   max="100"
-	   v-model="temp_risk"
+	   v-model="risk"
 	   >
-    <div id="riskHelpBlock" class="form-text" v-if="lang == 'en'">
+    <div id="riskHelpBlock" class="form-text" v-if="getSelectedLang == 'en'">
       {{getRiskLang.summary_en}}
     </div>
     <div id="riskHelpBlock" class="form-text" v-else>
@@ -19,32 +19,22 @@
 </template>
 
 <script>
-  import {eventBus} from '../main';
   import {mapGetters} from 'vuex'
   export default{
-      props:["risk",
-	     "lang",
-	    ],
-      data(){
-	  return{
-	      temp_risk:this.risk
-	      }
-	  },
       computed:{
 	  ...mapGetters([
-	      "getRiskLang"
-	      ])
-	  },
-      watch:{
-	  temp_risk: function(value){
-	      eventBus.changeRisk(value)
+	      "getRiskLang",
+	      "getSelectedLang"
+	  ]),
+	  risk:{
+	      get(){
+		  return this.$store.getters.getRisk
+	      },
+	      set(value){
+		  this.$store.commit("setRisk",value)
+		  }
 	      }
-	  },
-    created(){
-	eventBus.changeRisk(this.temp_risk);
-
-	}
-
+	  }
   }
 </script>
 
